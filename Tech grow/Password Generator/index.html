@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Generator</title>
+
+  <style>
+    body {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(120deg, #1a1a1d, #4e4e50);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+  
+  .container {
+    text-align: center;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #fff, 0 0 20px #0ff;
+  }
+  
+  .output-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px solid #0ff;
+    padding: 10px;
+    border-radius: 8px;
+    background: #222;
+  }
+  
+  #password {
+    flex: 1;
+    font-size: 1.5rem;
+    color: #0ff;
+    text-align: left;
+    min-height: 32px;
+  }
+  
+  .typing {
+    animation: blink 1s steps(2, start) infinite;
+  }
+  
+  @keyframes blink {
+    50% {
+      border-right: 2px solid #0ff;
+    }
+  }
+  
+  #copy-btn {
+    padding: 10px 15px;
+    margin-left: 10px;
+    background: #0ff;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  
+  #copy-btn:hover {
+    background: #03a9f4;
+    transform: scale(1.1);
+  }
+  
+  #generate-btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: #fff;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  
+  #generate-btn:hover {
+    background: linear-gradient(45deg, #ff6a88, #ff5a33);
+    transform: scale(1.1);
+  }
+  
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Password Generator</h1>
+    <div class="output-box">
+      <span id="password" class="typing"></span>
+      <button id="copy-btn">Copy</button>
+    </div>
+    <button id="generate-btn">Generate Password</button>
+  </div>
+
+
+  <script>
+    const passwordField = document.getElementById("password");
+const generateBtn = document.getElementById("generate-btn");
+const copyBtn = document.getElementById("copy-btn");
+
+// Function to generate random password
+function generatePassword(length = 12) {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=<>?";
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    password += characters[randomIndex];
+  }
+  return password;
+}
+function typePassword(password) {
+  passwordField.classList.remove("typing");
+  passwordField.textContent = "";
+let index = 0;
+  const typingInterval = setInterval(() => {
+    if (index < password.length) {
+      passwordField.textContent += password[index];
+      index++;
+    } else {
+      clearInterval(typingInterval);
+      passwordField.classList.add("typing");
+    }
+  }, 100);
+}
+generateBtn.addEventListener("click", () => {
+  const newPassword = generatePassword();
+  typePassword(newPassword);
+});
+copyBtn.addEventListener("click", () => {
+  if (passwordField.textContent) {
+    navigator.clipboard.writeText(passwordField.textContent).then(() => {
+      alert("Password Copied to Clipboard!");
+    });
+  } else {
+    alert("No Password to Copy!");
+  }
+});
+  </script>
+</body>
+</html>
