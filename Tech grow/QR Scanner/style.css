@@ -1,0 +1,108 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 50%, #00c6ff 100%);
+    color: #fff;
+    overflow: hidden;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    width: 320px;
+    position: relative;
+}
+
+h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    animation: fadeIn 1s ease-out forwards;
+    opacity: 0;
+}
+
+#video {
+    width: 100%;
+    border-radius: 12px;
+    margin-top: 1rem;
+    display: none;
+}
+
+#canvas {
+    display: none;
+}
+
+.output {
+    margin-top: 1.2rem;
+    word-break: break-all;
+    min-height: 48px;
+    font-weight: 600;
+}
+
+button {
+    margin-top: 1.2rem;
+    padding: .8rem 1.6rem;
+    border: none;
+    background: #00c6ff;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 198, 255, 0.6);
+}
+
+.scan-box {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 220px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    overflow: hidden;
+    display: none;
+}
+
+.scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #00c6ff;
+    animation: scan 2.0s linear infinite;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scan {
+    0% {
+        top: 0;
+    }
+
+    100% {
+        top: calc(100% - 2px);
+    }
+}
